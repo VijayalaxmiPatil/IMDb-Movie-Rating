@@ -3,10 +3,14 @@
 # Description: This script randomly picks any number of movies specified by user and prints its details viz., title, year and summary
 #######################################################
 
-
-from lxml import html
+import sys
+import pip
 import requests
 import random
+if not "lxml" in sys.modules:
+    pip.main(["install", "lxml"])
+from lxml import html
+
 
 def moviePicker(Num_Of_Movies_To_Display):
     count = 0
