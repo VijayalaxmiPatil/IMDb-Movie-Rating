@@ -1,60 +1,35 @@
-import sys
-import re
-from urllib.parse import urlparse
+########################################################
 
-#The python libraries 
-from mechanize import Browser
-from BeautifulSoup import BeautifulSoup as bs
-
-class ImdbRating:
-	title = rating = flag = None
-	BASE_url = "http://www.imdb.com"
-	
-	def __init__(self,title):
-		self.title = title
-		self._process()
-
-	def _process(self):
-		br = Browser()
-		url = "%s/find?s=tt&q=%s" %(self.BASE_url,self.title)
-		br.open(url)
-		link = br.find_link(url_regex = re.compile(r'/title/tt*'))
-		result = br.follow_link(link)
-		self.url = urlparse.urljoin(self.BASE_url,link.url)
-		soup = bs(result.read())
+# Description: This script randomly picks any number of movies specified by user and prints its details viz., title, year and summary
+#######################################################
 
 
-		try:
-			#scrape the title
-			"***"
-			head = soup.find('h1').contents[1]
-			if head.has_key('itemprop') and head['itemprop'] == 'name':
-				self.title = head.contents[0]
-			#scrape the rating
-			for span in soup.findAll('span'):
-				if span.has_key('itemprop') and span['itemprop'] == 'ratingValue':
-					self.rating = span.contents[0]
-					break
-				self.flag = True
+from lxml import html
+import requests
+import random
 
-		except:
-			print ("Movie not Found!!")
-				
+def moviePicker(Num_Of_Movies_To_Display):
+    count = 0
+    while(count < Num_Of_Movies_To_Display):
+        page = requests.get('http://www.imdb.com/chart/top')
+        tree = html.fromstring(page.content)
+        rand = random.randint(1,50)
 
-	
-if __name__ == "__main__":
-	if len(sys.argv) == 1:
-		print("Usage: %s < Movie title required>" %(sys.argv[0]))
-	else:
-		Movie_Title = ''.join(sys.argv[1::])
-		res = ImdbRating(Movie_Title)
-		if res.flag is True:
-			print("Movie : %s" %res.title)
-			print("Rating: %s" %res.rating)
-	
-								
+        title = tree.xpath('//*[@id="main"]/div/span/div/div/div[3]/table/tbody/tr[' + str(rand) +']/td[2]/a/text()')
+        yearReleased = tree.xpath('//*[@id="main"]/div/span/div/div/div[3]/table/tbody/tr[' + str(rand) + ']/td[2]/span/text()')
 
+        # Parse the movie's url and pull the summary from the details page
+        movieUrl = str(tree.xpath('//*[@id="main"]/div/span/div/div/div[3]/table/tbody/tr[' + str(rand) + ']/td[2]/a/@href'))
+        removeFront = movieUrl.replace("['", "")
+        cleanUrl = 'http://www.imdb.com' + removeFront.replace("']", "")
+        moviepage = requests.get(cleanUrl)
+        details = html.fromstring(moviepage.content)
+        movieSummary = details.xpath("normalize-space(//div[@class='summary_text']/text())")
 
-		
+        count = count + 1
+        print(title)
+        print(yearReleased)
+        print( movieSummary)
 
-
+Num_Of_Movies = 3
+moviePicker(Num_Of_Movies)
