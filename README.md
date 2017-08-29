@@ -1,23 +1,24 @@
-Scrape movie rating from IMDB website 
+Scrape movie details from IMDB website 
 --------------------------------------
 
-This is a simple python script to scrape the movie ratings from IMDB website.
-The script uses the python library mechanize to interact with webpages and BeautifulSoup to mine the data from the webpages.
+This is a simple python script to scrape the movie details from IMDB website.
+The script randomly picks the movie names(based on the number of user's choice) and prints the details like name, Year of release and movie summary.
 
 
-Libraries to be installed:
+Modules to be installed:
 ------------------------
-1. BeautifulSoup
-2. mechanize
+1. Requests
+2. Random
+3. lxml
 
 
 Usage:
 --------
 Run the script ImdbRating.py as below:
 
-python IMDbRating.py  <Movie name>
+python IMDbRating.py  
 
-eg: python IMDBRating.py The Mask
+eg: python IMDBRating.py 
 
 
 
