@@ -38,19 +38,19 @@ class ImdbRating:
 				self.flag = True
 
 		except:
-			print "Movie not Found!!"
+			print ("Movie not Found!!")
 				
 
 	
 if __name__ == "__main__":
 	if len(sys.argv) == 1:
-		print "Usage: %s < Movie title required>" %(sys.argv[0])
+		print("Usage: %s < Movie title required>" %(sys.argv[0]))
 	else:
 		Movie_Title = ''.join(sys.argv[1::])
 		res = ImdbRating(Movie_Title)
 		if res.flag is True:
-			print "Movie : %s" %res.title
-			print "Rating: %s" %res.rating
+			print("Movie : %s" %res.title)
+			print("Rating: %s" %res.rating)
 	
 								
 
