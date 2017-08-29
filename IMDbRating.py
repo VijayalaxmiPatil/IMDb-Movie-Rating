@@ -1,6 +1,6 @@
 import sys
 import re
-import urlparse
+from urllib.parse import urlparse
 
 #The python libraries 
 from mechanize import Browser
