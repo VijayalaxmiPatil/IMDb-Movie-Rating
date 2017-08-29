@@ -6,9 +6,13 @@
 import sys
 import pip
 import requests
-import random
+if not "random" in sys.modules:
+    pip.main(["install", "random"])
+
 if not "lxml" in sys.modules:
     pip.main(["install", "lxml"])
+
+import random
 from lxml import html
 
 
