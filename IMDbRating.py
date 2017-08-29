@@ -5,16 +5,18 @@
 
 import sys
 import pip
-import requests
 if not "random" in sys.modules:
     pip.main(["install", "random"])
 
 if not "lxml" in sys.modules:
     pip.main(["install", "lxml"])
 
+if not "requests" in sys.modules:
+  pip.main(["install", "requests"])
+
 import random
 from lxml import html
-
+import requests
 
 def moviePicker(Num_Of_Movies_To_Display):
     count = 0
