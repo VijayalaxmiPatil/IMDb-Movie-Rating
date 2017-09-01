@@ -1,5 +1,4 @@
 import sys
-import xmlrunner
 import pip
 
 if not "xmlrunner" in sys.modules:
@@ -7,6 +6,8 @@ if not "xmlrunner" in sys.modules:
 
 if not "unittest" in sys.modules:
         pip.main(["install", "unittest"])
+
+import xmlrunner
 import unittest
 
 class TestStringMethods(unittest.TestCase):
