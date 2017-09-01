@@ -2,6 +2,9 @@ import sys
 import xmlrunner
 import pip
 
+if not "xmlrunner" in sys.modules:
+	pip.install(["install", "xmlrunner"])
+
 if not "unittest" in sys.modules:
         pip.main(["install", "unittest"])
 import unittest
