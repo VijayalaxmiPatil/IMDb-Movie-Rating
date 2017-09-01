@@ -1,6 +1,6 @@
 import xmlrunner
 
-def runner(output = "CI_test_output.xml"):
+def runner(output = "CI_test_output"):
 	return xmlrunner.XMLTestRunner(
 		output = output
 		)
