@@ -1,3 +1,6 @@
+if not xmlrunner in sys.modules:
+	pip.main(["install", "xmlrunner"])
+	
 import xmlrunner
 
 def runner(output = "CI_test_output"):
